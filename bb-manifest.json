@@ -4,8 +4,8 @@
   "description": "A fun block puzzle game — no ads, no sounds!",
   "start_url": "./blockblast.html",
   "display": "standalone",
-  "background_color": "#1a0533",
-  "theme_color": "#1a0533",
+  "background_color": "#f0e6ff",
+  "theme_color": "#f0e6ff",
   "orientation": "portrait",
   "icons": [
     {

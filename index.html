@@ -7,33 +7,33 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-title" content="BlockBlast">
-<meta name="theme-color" content="#1a0533">
+<meta name="theme-color" content="#f0e6ff">
 <link rel="manifest" href="bb-manifest.json">
 <title>BlockBlast</title>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-   
-:root {
-  --bg: #1a0533;
-  --bg2: #2a0a4a;
-  --board-bg: #12022a;
-  --board-border: #3d1170;
-  --cell-empty: #1e0640;
-  --cell-border: #2a0a4a;
-  --text: #f0e6ff;
-  --text-dim: #9b7ec8;
-  --score-glow: #d4a7ff;
-  --shadow: rgba(0,0,0,0.5);
 
-  --c1: #ff6b6b; /* red */
-  --c2: #ffa94d; /* orange */
-  --c3: #ffd43b; /* yellow */
-  --c4: #69db7c; /* green */
-  --c5: #4dabf7; /* blue */
-  --c6: #da77f2; /* purple */
-  --c7: #f783ac; /* pink */
-  --c8: #63e6be; /* teal */
+:root {
+  --bg: #f0e6ff;
+  --bg2: #e4d5fa;
+  --board-bg: #ffffff;
+  --board-border: #c8a8f0;
+  --cell-empty: #f5eeff;
+  --cell-border: #d0aaff;
+  --text: #2d0a5a;
+  --text-dim: #8055b8;
+  --score-glow: #6a0dad;
+  --shadow: rgba(100,0,200,0.15);
+
+  --c1: #ff5252; /* red */
+  --c2: #ff8c00; /* orange */
+  --c3: #e6b800; /* yellow */
+  --c4: #2ecc40; /* green */
+  --c5: #1a8fff; /* blue */
+  --c6: #b044f0; /* purple */
+  --c7: #ff4daa; /* pink */
+  --c8: #00c9a0; /* teal */
 }
 
 body {
@@ -48,8 +48,8 @@ body {
   padding: 12px 8px 16px;
   overflow-x: hidden;
   background-image:
-    radial-gradient(ellipse at 20% 10%, rgba(138,43,226,0.25) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 80%, rgba(75,0,130,0.2) 0%, transparent 50%);
+    radial-gradient(ellipse at 20% 10%, rgba(180,120,255,0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(140,80,220,0.2) 0%, transparent 50%);
 }
 
 /* ---- HEADER ---- */
@@ -122,8 +122,8 @@ header {
   border-radius: 16px;
   padding: 8px;
   box-shadow:
-    0 8px 32px rgba(0,0,0,0.5),
-    inset 0 1px 0 rgba(255,255,255,0.05);
+    0 8px 32px rgba(100,0,200,0.15),
+    inset 0 1px 0 rgba(255,255,255,0.8);
   width: min(90vw, 380px);
   height: min(90vw, 380px);
 }
@@ -152,14 +152,15 @@ header {
 }
 
 .cell.clearing {
-  animation: clearFlash 0.4s ease forwards;
+  animation: clearFlash 0.9s ease forwards;
 }
 
 @keyframes clearFlash {
-  0%   { transform: scale(1); filter: brightness(1); }
-  30%  { transform: scale(1.12); filter: brightness(2) saturate(2); }
-  60%  { transform: scale(0.95); filter: brightness(1.5); }
-  100% { transform: scale(1); filter: brightness(1); opacity: 0; }
+  0%   { transform: scale(1);    filter: brightness(1);                    opacity: 1; }
+  20%  { transform: scale(1.18); filter: brightness(2.5) saturate(0) sepia(0); opacity: 1; background: #fff !important; }
+  45%  { transform: scale(1.12); filter: brightness(2) saturate(2);        opacity: 1; }
+  70%  { transform: scale(1.05); filter: brightness(1.6);                  opacity: 0.8; }
+  100% { transform: scale(0.8);  filter: brightness(1);                    opacity: 0; }
 }
 
 .cell.drop-in {
@@ -177,8 +178,8 @@ header {
   justify-content: space-around;
   align-items: center;
   width: min(90vw, 380px);
-  background: rgba(255,255,255,0.04);
-  border: 2px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.6);
+  border: 2px solid rgba(180,120,255,0.3);
   border-radius: 20px;
   padding: 12px 8px;
   gap: 8px;
@@ -266,7 +267,7 @@ header {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(10,0,20,0.85);
+  background: rgba(240,230,255,0.88);
   backdrop-filter: blur(8px);
   z-index: 200;
   flex-direction: column;
@@ -828,7 +829,7 @@ function clearLines() {
       const [r,c] = key.split('-').map(Number);
       updateCell(r, c);
     });
-  }, 400);
+  }, 900);
 
   // Score: base 10 per line, bonus for combos
   const basePoints = total * 10 * GRID;
