@@ -593,28 +593,15 @@ function onPieceDragEnd() {
 function onCellDragOver(r, c) {
   if (!dragState) return;
   const piece = pieces[dragState.pieceIdx];
-  // center the piece on cursor
-  const rows = piece.shape.map(([pr]) => pr);
-  const cols = piece.shape.map(([,pc]) => pc);
-  const midR = Math.floor((Math.max(...rows)) / 2);
-  const midC = Math.floor((Math.max(...cols)) / 2);
-  const startR = r - midR;
-  const startC = c - midC;
-  dragState.startR = startR;
-  dragState.startC = startC;
-  showPreview(piece, startR, startC);
+  // anchor top-left of bounding box to hovered cell
+  dragState.startR = r;
+  dragState.startC = c;
+  showPreview(piece, r, c);
 }
 
 function onCellDrop(r, c) {
   if (!dragState) return;
-  const piece = pieces[dragState.pieceIdx];
-  const rows = piece.shape.map(([pr]) => pr);
-  const cols = piece.shape.map(([,pc]) => pc);
-  const midR = Math.floor((Math.max(...rows)) / 2);
-  const midC = Math.floor((Math.max(...cols)) / 2);
-  const startR = r - midR;
-  const startC = c - midC;
-  tryPlace(dragState.pieceIdx, startR, startC);
+  tryPlace(dragState.pieceIdx, r, c);
   onPieceDragEnd();
 }
 
@@ -700,8 +687,9 @@ function showGhost(idx, x, y) {
 
 function moveGhost(x, y) {
   const ghost = document.getElementById('drag-ghost');
+  // offset upward so finger doesn't cover the piece
   ghost.style.left = (x - ghost.offsetWidth/2) + 'px';
-  ghost.style.top =  (y - ghost.offsetHeight/2) + 'px';
+  ghost.style.top =  (y - ghost.offsetHeight - 16) + 'px';
 }
 
 function hideGhost() {
